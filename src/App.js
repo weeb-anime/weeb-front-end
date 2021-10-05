@@ -1,49 +1,80 @@
-
 import './App.css';
 import React from 'react';
-import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import AnimeForm from './components/AnimeForm';
-import axios from "axios";
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import axios from 'axios';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SuggestAnime from './components/SuggestAnime';
-import Profile from './components/Profile'
+import Profile from './components/Profile';
+import LoginButton from './components/LoginButton';
+import { withAuth0 } from '@auth0/auth0-react';
 
 class App extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       anime: [],
-      user: null
+      user: null,
+    };
+  }
+
+  async componentDidMount() {
+    if (this.props.auth0.isAuthenticated) {
+      const res = await this.props.auth0.getIdTokenClaims();
+
+      const jwt = res.__raw;
+
+      const config = {
+        headers: { Authorization: `Bearer ${jwt}` },
+        method: 'get',
+        baseURL: process.env.REACT_APP_API_URL,
+        URL: '/anime',
+      };
+      const animeResponse = await axios(config);
+      this.setState({ anime: animeResponse.data });
+      this.setState({ user: this.props.auth0.user });
+      this.props.handleAuth(this.user);
     }
   }
-  getAnimeList = async (animeInfo) => {
-    const animeURL = `https://api.jikan.moe/v3/search/anime?q=${animeInfo}`
 
-    let animeResponse = await axios.get(animeURL)
-    let animeData = animeResponse.data
-    console.log(animeData.results)
+  getAnimeList = async animeInfo => {
+    const animeURL = `${process.env.REACT_APP_API_URL}/anime?searchQuery=${animeInfo}`;
+
+    let animeResponse = await axios.get(animeURL);
+    let animeData = animeResponse.data;
+    console.log(animeData.results);
     this.setState({
-      anime: animeData.results
-    })
-  }
-  render(){
-    return(
+      anime: animeData,
+    });
+  };
+  render() {
+    return (
       <>
-      <Router>
-        <Switch>
-          <Route path='/profile'>
-            <Profile/>
-          </Route>
-          <Route>
-      <h1>hell yeah baby</h1>
-      <AnimeForm getAnimeList={this.getAnimeList}/>
-      <SuggestAnime xxx={this.state.anime}/>
-      </Route>
-      </Switch>
-      </Router>
+        <LoginButton />
+        {/* <Router>
+          <Switch>
+            <Route exact path="/">
+
+              {this.props.auth0.isAuthenticated ? (
+                <>
+                  <h1>hell yeah baby</h1>
+                  <AnimeForm getAnimeList={this.getAnimeList} />
+                  <SuggestAnime xxx={this.state.anime} />
+                </>
+              ) : (
+                <>
+                  <LoginButton />
+                </>
+              )}
+            </Route>
+            <Route path="/profile">
+              <Profile user={this.state.user} />
+            </Route>
+          </Switch>
+        </Router> */}
       </>
-    )
+    );
   }
 }
 
-export default App;
+export default withAuth0(App);
