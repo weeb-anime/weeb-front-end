@@ -7,25 +7,55 @@ import { Button } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 
 class Profile extends Component {
+  componentDidMount() {
+    this.props.getAnimeRefresh();
+  }
+
+  // onDelete =()=> this.props.handleDelete(this.props.anime)
+
   render() {
+    console.log(this.props.favAnime);
+    let anime = this.props.favAnime;
     return (
       <>
-        {this.props.auth0.isAuthenticated && (
-          <>
-            <h1> Hi from the other side</h1>
-            <p>Username: {this.props.auth0.user.name}</p>
-            <Card>
-          <Card.Body><Card.Text as='h4'>
-            <p>{this.props.favAnime.title}</p>
-          </Card.Text>
-            <Card.Img variant='bottom' src={this.props.favAnime.image_url}/>
-            <Button onClick ={this.props.handleDelete}>Delete</Button>
-          </Card.Body>
-        </Card>
-          </>
-        )}
+        <h1> Hi from the other side</h1>
+        <p>Username: {this.props.auth0.user.name}</p>
+        {/* {this.props.auth0.isAuthenticated && ( */}
+        <>
+          <Container>
+            <Row xs={1} sm={1} md={2} lg={3}>
+              {this.props.favAnime.map(anime => (
+                <SingleFavAnime
+                  handleDelete={this.props.handleDelete}
+                  anime={anime}
+                />
+              ))}
+            </Row>
+          </Container>
+        </>
+        {/* )} */}
       </>
     );
   }
 }
 export default withAuth0(Profile);
+
+class SingleFavAnime extends Component {
+  onDelete = () => this.props.handleDelete(this.props.anime);
+
+  render() {
+    return (
+      <>
+        <Card>
+          <Card.Body>
+            <Card.Text as="h4">
+              <p>{this.props.anime.title}</p>
+            </Card.Text>
+            <Card.Img variant="bottom" src={this.props.anime.image_url} />
+            <Button onClick={this.onDelete}>Delete</Button>
+          </Card.Body>
+        </Card>
+      </>
+    );
+  }
+}

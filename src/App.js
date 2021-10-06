@@ -16,7 +16,7 @@ class App extends React.Component {
     this.state = {
       anime: [],
       user: null,
-      favAnime: []
+      favAnime: [],
     };
   }
 
@@ -41,9 +41,9 @@ class App extends React.Component {
       this.setState({ user: this.props.auth0.user });
     }
   }
-  
-  handleAdd = async (anime) => {
-    let url = process.env.REACT_APP_API_URL
+
+  handleAdd = async anime => {
+    let url = process.env.REACT_APP_API_URL;
     const animeFav = {
       title: anime.title,
       description: anime.synopsis,
@@ -51,20 +51,28 @@ class App extends React.Component {
       episodes: anime.episodes,
       score: anime.score,
       rating: anime.rated,
-      email: this.props.auth0.user.email
-    }
+      email: this.props.auth0.user.email,
+    };
     const animeResponse = await axios.post(url + '/anime', animeFav);
     this.getAnimeRefresh();
-  }
+    // let animeFavorite = animeResponse.data;
+    // console.log(animeFavorite)
+    // this.setState({
+    //   favAnime: animeFavorite
+    // })
+  };
 
-  handleDelete = async (id) => {
+  handleDelete = async raw => {
+    console.log(raw);
+    const id = raw._id;
     const deleteURL = process.env.REACT_APP_API_URL;
-    await axios.delete(deleteURL + '/anime' + id);
+    await axios.delete(deleteURL + '/anime/' + id);
     this.getAnimeRefresh();
-  }
+  };
+
   getAnimeList = async animeInfo => {
     const animeURL = `${process.env.REACT_APP_API_URL}/anime?q=${animeInfo}`;
-    console.log(animeURL)
+    console.log(animeURL);
     let animeResponse = await axios.get(animeURL);
     let animeData = animeResponse.data;
     console.log(animeData.results);
@@ -72,16 +80,20 @@ class App extends React.Component {
       anime: animeData,
     });
   };
-  getAnimeRefresh = async ()=>{
-    let url = process.env.REACT_APP_API_URL
-    const animeData = await axios.get(url+'/anime')
-    console.log(animeData)
+
+  getAnimeRefresh = async () => {
+    let url = process.env.REACT_APP_API_URL;
+    let email = this.props.auth0.user.email;
+    const animeData = await axios.get(url + '/user/' + email);
+    console.log(animeData);
     this.setState({
-      favAnime: animeData.data
-    })
-  }
+      favAnime: animeData.data,
+    });
+  };
+
   render() {
-    console.log('RENDER isAuthenticated:', this.props.auth0.isAuthenticated);
+    console.log(this.state.favAnime);
+
     // console.log('USER:', this.props.auth0.user);
     return (
       <>
@@ -92,7 +104,10 @@ class App extends React.Component {
                 <>
                   <Header />
                   <AnimeForm getAnimeList={this.getAnimeList} />
-                  <SuggestAnime xxx={this.state.anime} handleAdd={this.handleAdd}/>
+                  <SuggestAnime
+                    xxx={this.state.anime}
+                    handleAdd={this.handleAdd}
+                  />
                 </>
               ) : (
                 <>
@@ -101,7 +116,12 @@ class App extends React.Component {
               )}
             </Route>
             <Route path="/Profile">
-              <Profile user={this.state.user}  favAnime={this.state.favAnime} />
+              <Profile
+                user={this.state.user}
+                favAnime={this.state.favAnime}
+                getAnimeRefresh={this.getAnimeRefresh}
+                handleDelete={this.handleDelete}
+              />
             </Route>
           </Switch>
         </Router>
