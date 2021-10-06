@@ -11,7 +11,7 @@ class Header extends Component {
       <Navbar bg="dark" variant="dark">
         <Container>
           <NavItem>
-            <Link to="/profile" classname="nav-link">
+            <Link to="/profile" className="nav-link">
               Profile
             </Link>
           </NavItem>
