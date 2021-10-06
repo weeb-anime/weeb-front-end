@@ -53,7 +53,7 @@ class App extends React.Component {
       rating: anime.rated,
       email: this.props.auth0.user.email,
     };
-    const animeResponse = await axios.post(url + '/anime', animeFav);
+    await axios.post(url + '/anime', animeFav);
     this.getAnimeRefresh();
     // let animeFavorite = animeResponse.data;
     // console.log(animeFavorite)

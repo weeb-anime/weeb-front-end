@@ -15,7 +15,6 @@ class Profile extends Component {
 
   render() {
     console.log(this.props.favAnime);
-    let anime = this.props.favAnime;
     return (
       <>
         <h1> Hi from the other side</h1>
