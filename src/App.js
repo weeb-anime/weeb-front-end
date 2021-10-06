@@ -42,8 +42,8 @@ class App extends React.Component {
   }
 
   getAnimeList = async animeInfo => {
-    const animeURL = `${process.env.REACT_APP_API_URL}/anime?searchQuery=${animeInfo}`;
-
+    const animeURL = `${process.env.REACT_APP_API_URL}/anime?q=${animeInfo}`;
+    console.log(animeURL)
     let animeResponse = await axios.get(animeURL);
     let animeData = animeResponse.data;
     console.log(animeData.results);
