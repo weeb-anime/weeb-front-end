@@ -21,7 +21,7 @@ class Profile extends Component {
         
         {/* {this.props.auth0.isAuthenticated && ( */}
         <>
-          <Container>
+          <Container >
             <Row xs={1} sm={1} md={2} lg={3}>
               {this.props.favAnime.map((anime, idx) => (
                 <SingleFavAnime
