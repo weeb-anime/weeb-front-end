@@ -18,6 +18,7 @@ class App extends React.Component {
       anime: [],
       user: null,
       favAnime: [],
+      showAlert: false
     };
   }
 
@@ -33,6 +34,9 @@ class App extends React.Component {
       email: this.props.auth0.user.email,
     };
     await axios.post(url + '/anime', animeFav);
+    this.setState({
+      showAlert: true
+    })
     this.getAnimeRefresh();
   };
 
@@ -54,6 +58,11 @@ class App extends React.Component {
       anime: animeData,
     });
   };
+  hideAlert =()=>{
+    this.setState({
+      showAlert: false
+    })
+  }
 
   getAnimeRefresh = async () => {
     let url = process.env.REACT_APP_API_URL;
@@ -77,7 +86,7 @@ class App extends React.Component {
                   <AnimeForm getAnimeList={this.getAnimeList} />
                   <SuggestAnime
                     xxx={this.state.anime}
-                    handleAdd={this.handleAdd}
+                    handleAdd={this.handleAdd} showAlert={this.state.showAlert} hideAlert={this.hideAlert}
                   />
                 </>
               ) : (

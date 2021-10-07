@@ -17,8 +17,8 @@ class Profile extends Component {
     console.log(this.props.favAnime);
     return (
       <>
-        <h1> Hi from the other side</h1>
-        <p>Username: {this.props.auth0.user.name}</p>
+        <h1> Hello {this.props.auth0.user.name}</h1>
+        
         {/* {this.props.auth0.isAuthenticated && ( */}
         <>
           <Container>
