@@ -5,10 +5,18 @@ import { Card } from 'react-bootstrap';
 import { Container } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+import axios from 'axios';
 
 class Profile extends Component {
   componentDidMount() {
     this.props.getAnimeRefresh();
+  }
+  handleSubmit = async (event)=>{
+    event.preventDefault();
+    const animeNotes = event.target.notes.value;
+    const anime_id= this.props.anime.id
+
   }
 
   // onDelete =()=> this.props.handleDelete(this.props.anime)
@@ -52,6 +60,13 @@ class SingleFavAnime extends Component {
               <p>{this.props.anime.title}</p>
             </Card.Text>
             <Card.Img variant="bottom" src={this.props.anime.image_url} />
+            <Form onSubmit = {this.handleSubmit}>
+            <Form.Group className="mb-3" controlId="notes">
+          <Form.Label>Notes</Form.Label>
+          <Form.Control type="title" placeholder="type in your notes"/>
+        </Form.Group>
+        <Button variant="primary" type ="submit"> Add notes</Button>
+            </Form>
             <Button onClick={this.onDelete}>Delete</Button>
           </Card.Body>
         </Card>
