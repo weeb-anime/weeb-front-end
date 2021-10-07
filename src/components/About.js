@@ -3,7 +3,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import George from './images/SXT39492.jpeg';
 import Harvey from './images/placeholder.jpg';
 import Jovincent from './images/placeholder.jpg';
-import Roop from './images/placeholder.jpg';
+import Roop from './images/roop.png';
 
 
 export default class About extends Component {
@@ -47,7 +47,8 @@ export default class About extends Component {
             }}>
               <h3>Roop Hayer</h3>
               <img className="professional-photo" src={Roop} alt="Roop" />
-              <p className="about-list-item" >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <p className="about-list-item" >Software Developer with background in management, mechanical and electrical fields. US Air Force veteran with a wide range of experience in 8 years of career. Software development always amazed me, how it works and how I can change a website and make it more interactive. I really enjoy interactive and dynamic webpages, so I learned Javascript and React to enhance the look of the website. In my previous job in the electrical and mechanical field, I loved to troubleshoot various equipment and circuits and it gave me satisfaction to see the end results. Coding and troubleshooting issues to get the desired results gives me the same sense of gratification.<p>
+              Hobbies: I enjoys watching anime and movies. Love exploring new hiking trails in Northern California. Believes in healthy body healthy mind.</p></p>
             </ListGroup.Item>
           </ul>
           </ListGroup>
