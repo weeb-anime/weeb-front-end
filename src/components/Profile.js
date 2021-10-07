@@ -15,7 +15,6 @@ class Profile extends Component {
 
   render() {
     console.log(this.props.favAnime);
-    let anime = this.props.favAnime;
     return (
       <>
         <h1> Hi from the other side</h1>
@@ -24,10 +23,11 @@ class Profile extends Component {
         <>
           <Container>
             <Row xs={1} sm={1} md={2} lg={3}>
-              {this.props.favAnime.map(anime => (
+              {this.props.favAnime.map((anime, idx) => (
                 <SingleFavAnime
                   handleDelete={this.props.handleDelete}
                   anime={anime}
+                  key={idx}
                 />
               ))}
             </Row>

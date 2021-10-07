@@ -6,6 +6,7 @@ import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SuggestAnime from './components/SuggestAnime';
 import Profile from './components/Profile';
+import About from './components/About';
 import LoginButton from './components/LoginButton';
 import { withAuth0 } from '@auth0/auth0-react';
 import Header from './components/Header';
@@ -20,28 +21,6 @@ class App extends React.Component {
     };
   }
 
-  async componentDidMount() {
-    console.log(
-      'ComponentDidMount isAuthenticated:',
-      this.props.auth0.isAuthenticated
-    );
-    if (this.props.auth0.isAuthenticated) {
-      const res = await this.props.auth0.getIdTokenClaims();
-
-      const jwt = res.__raw;
-
-      const config = {
-        headers: { Authorization: `Bearer ${jwt}` },
-        method: 'get',
-        baseURL: process.env.REACT_APP_API_URL,
-        URL: '/anime',
-      };
-      const animeResponse = await axios(config);
-      this.setState({ anime: animeResponse.data });
-      this.setState({ user: this.props.auth0.user });
-    }
-  }
-
   handleAdd = async anime => {
     let url = process.env.REACT_APP_API_URL;
     const animeFav = {
@@ -53,17 +32,12 @@ class App extends React.Component {
       rating: anime.rated,
       email: this.props.auth0.user.email,
     };
-    const animeResponse = await axios.post(url + '/anime', animeFav);
+    await axios.post(url + '/anime', animeFav);
     this.getAnimeRefresh();
-    // let animeFavorite = animeResponse.data;
-    // console.log(animeFavorite)
-    // this.setState({
-    //   favAnime: animeFavorite
-    // })
   };
 
   handleDelete = async raw => {
-    console.log(raw);
+    // console.log(raw);
     const id = raw._id;
     const deleteURL = process.env.REACT_APP_API_URL;
     await axios.delete(deleteURL + '/anime/' + id);
@@ -92,9 +66,6 @@ class App extends React.Component {
   };
 
   render() {
-    console.log(this.state.favAnime);
-
-    // console.log('USER:', this.props.auth0.user);
     return (
       <>
         <Router>
@@ -116,12 +87,17 @@ class App extends React.Component {
               )}
             </Route>
             <Route path="/Profile">
+              <Header />
               <Profile
                 user={this.state.user}
                 favAnime={this.state.favAnime}
                 getAnimeRefresh={this.getAnimeRefresh}
                 handleDelete={this.handleDelete}
               />
+            </Route>
+            <Route path="/About">
+              <Header />
+              <About />
             </Route>
           </Switch>
         </Router>
