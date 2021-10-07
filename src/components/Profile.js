@@ -12,12 +12,6 @@ class Profile extends Component {
   componentDidMount() {
     this.props.getAnimeRefresh();
   }
-  handleSubmit = async (event)=>{
-    event.preventDefault();
-    const animeNotes = event.target.notes.value;
-    const anime_id= this.props.anime.id
-
-  }
 
   // onDelete =()=> this.props.handleDelete(this.props.anime)
 
@@ -49,7 +43,18 @@ class Profile extends Component {
 export default withAuth0(Profile);
 
 class SingleFavAnime extends Component {
-  onDelete = () => this.props.handleDelete(this.props.anime);
+  onDelete =  () => this.props.handleDelete(this.props.anime);
+  
+  handleSubmit = async (event)=>{
+    event.preventDefault();
+    const animeNotes = {
+      user_comment: event.target.notes.value};
+    const animeId= this.props.anime._id;
+    console.log(animeId);
+    const editURL = `${process.env.REACT_APP_API_URL}/anime/${animeId}`
+    await axios.put(editURL, animeNotes)
+  }
+  
 
   render() {
     return (
@@ -60,6 +65,7 @@ class SingleFavAnime extends Component {
               <p>{this.props.anime.title}</p>
             </Card.Text>
             <Card.Img variant="bottom" src={this.props.anime.image_url} />
+            {this.props.anime.user_comment && (<Card.Text as="h5">{this.props.user_comment}</Card.Text>)}
             <Form onSubmit = {this.handleSubmit}>
             <Form.Group className="mb-3" controlId="notes">
           <Form.Label>Notes</Form.Label>
