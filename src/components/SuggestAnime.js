@@ -29,7 +29,6 @@ export default class SuggestAnime extends React.Component {
           <Row xs={1} sm={1} md={2} lg={3}>
             {this.props.xxx.map((anime, index) => (
               <SingleAnime
-                handleAdd={this.props.handleAdd}
                 anime={anime}
                 key={index}
                 handleClick={this.showModal}
@@ -38,9 +37,12 @@ export default class SuggestAnime extends React.Component {
           </Row>
         </Container>
         <AnimeModal
+          handleAdd={this.props.handleAdd}
           show={this.state.showModal}
           hide={this.hideModal}
           anime={this.state.selectedAnime}
+          showAlert={this.props.showAlert}
+          hideAlert={this.props.hideAlert}
         />
       </>
     );
@@ -48,7 +50,6 @@ export default class SuggestAnime extends React.Component {
 }
 
 class SingleAnime extends React.Component {
-  onAdd = () => this.props.handleAdd(this.props.anime);
   onSelect = () => this.props.handleClick(this.props.anime);
 
   render() {
@@ -67,7 +68,6 @@ class SingleAnime extends React.Component {
                   src={this.props.anime.image_url}
                   onClick={this.onSelect}
                 />
-                <Button onClick={this.onAdd}>Add</Button>
               </Card.Body>
             </Card>
           </>
