@@ -23,10 +23,11 @@ class Profile extends Component {
         <>
           <Container>
             <Row xs={1} sm={1} md={2} lg={3}>
-              {this.props.favAnime.map(anime => (
+              {this.props.favAnime.map((anime, idx) => (
                 <SingleFavAnime
                   handleDelete={this.props.handleDelete}
                   anime={anime}
+                  key={idx}
                 />
               ))}
             </Row>
