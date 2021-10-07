@@ -90,9 +90,9 @@ class App extends React.Component {
                   />
                 </>
               ) : (
-                <>
+                <div className ="login">
                   <LoginButton />
-                </>
+                </div>
               )}
             </Route>
             <Route path="/Profile">
