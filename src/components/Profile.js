@@ -50,7 +50,7 @@ class SingleFavAnime extends Component {
     const animeId= this.props.anime._id;
     console.log(animeId);
     const editURL = `${process.env.REACT_APP_API_URL}/anime/${animeId}`
-    let response = await axios.put(editURL, animeNotes)
+    await axios.put(editURL, animeNotes)
     this.props.getAnimeRefresh();
   
   }
