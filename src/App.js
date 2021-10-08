@@ -18,7 +18,7 @@ class App extends React.Component {
       anime: [],
       user: null,
       favAnime: [],
-      showAlert: false
+      showAlert: false,
     };
   }
 
@@ -35,8 +35,8 @@ class App extends React.Component {
     };
     await axios.post(url + '/anime', animeFav);
     this.setState({
-      showAlert: true
-    })
+      showAlert: true,
+    });
     this.getAnimeRefresh();
   };
 
@@ -58,11 +58,11 @@ class App extends React.Component {
       anime: animeData,
     });
   };
-  hideAlert =()=>{
+  hideAlert = () => {
     this.setState({
-      showAlert: false
-    })
-  }
+      showAlert: false,
+    });
+  };
 
   getAnimeRefresh = async () => {
     let url = process.env.REACT_APP_API_URL;
@@ -83,31 +83,34 @@ class App extends React.Component {
               {this.props.auth0.isAuthenticated ? (
                 <>
                   <Header />
-                  <div className='searchpage'>
+                  <h3>Welcome to Weeb, {this.props.auth0.user.name}</h3>
                   <AnimeForm getAnimeList={this.getAnimeList} />
+                  <div className="searchpage">
+                    <SuggestAnime
+                      xxx={this.state.anime}
+                      handleAdd={this.handleAdd}
+                      showAlert={this.state.showAlert}
+                      hideAlert={this.hideAlert}
+                    />
                   </div>
-                  <SuggestAnime
-                    xxx={this.state.anime}
-                    handleAdd={this.handleAdd} showAlert={this.state.showAlert} hideAlert={this.hideAlert}
-                  />
                 </>
               ) : (
-                <div className ="login">
+                <div className="login">
                   <div className="loginbox">
-                  <LoginButton />
+                    <LoginButton />
                   </div>
                 </div>
               )}
             </Route>
             <Route path="/Profile">
               <Header />
-              <div className='profilepage'>
-              <Profile
-                user={this.state.user}
-                favAnime={this.state.favAnime}
-                getAnimeRefresh={this.getAnimeRefresh}
-                handleDelete={this.handleDelete}
-              />
+              <div className="profilepage">
+                <Profile
+                  user={this.state.user}
+                  favAnime={this.state.favAnime}
+                  getAnimeRefresh={this.getAnimeRefresh}
+                  handleDelete={this.handleDelete}
+                />
               </div>
             </Route>
             <Route path="/About">
