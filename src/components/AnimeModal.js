@@ -3,7 +3,9 @@ import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { Alert } from 'react-bootstrap';
-export default class AnimeModal extends Component {
+import { withAuth0 } from '@auth0/auth0-react';
+
+class AnimeModal extends Component {
 
   onAdd = () => this.props.handleAdd(this.props.anime);
   
@@ -22,14 +24,12 @@ export default class AnimeModal extends Component {
                 src={this.props.anime.image_url}
                 alt={this.props.anime.description}
               />
-              {/* <Card.Text> */}
               <ul>
                 <li>Synopsis: {this.props.anime.synopsis}</li>
                 <li>Rated: {this.props.anime.rated}</li>
                 <li>Score: {this.props.anime.score}/10</li>
                 <li>Episodes: {this.props.anime.episodes}</li>
               </ul>
-              {/* </Card.Text> */}
             </Card.Body>
           </Card>
         </Modal.Body>{' '}
@@ -39,7 +39,7 @@ export default class AnimeModal extends Component {
           <Alert variant="success">
           <Alert.Heading>Added to your watchlist</Alert.Heading>
           <p>
-           To check your watchlist. Please go to    <Alert.Link href="/profile" >profile</Alert.Link> page
+           To check your watchlist. Please go to profile page.
           </p>
         </Alert>
         )}
@@ -52,3 +52,5 @@ export default class AnimeModal extends Component {
     );
   }
 }
+
+export default withAuth0(AnimeModal)

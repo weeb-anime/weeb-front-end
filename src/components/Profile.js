@@ -8,20 +8,18 @@ import { Row } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import axios from 'axios';
 
+
 class Profile extends Component {
   componentDidMount() {
     this.props.getAnimeRefresh();
   }
 
-  // onDelete =()=> this.props.handleDelete(this.props.anime)
 
   render() {
     console.log(this.props.favAnime);
     return (
       <>
         <h1> Hello {this.props.auth0.user.name}</h1>
-        
-        {/* {this.props.auth0.isAuthenticated && ( */}
         <>
           <Container >
             <Row xs={1} sm={1} md={2} lg={3}>
@@ -30,12 +28,12 @@ class Profile extends Component {
                   handleDelete={this.props.handleDelete}
                   anime={anime}
                   key={idx}
+                  getAnimeRefresh={this.props.getAnimeRefresh}
                 />
               ))}
             </Row>
           </Container>
         </>
-        {/* )} */}
       </>
     );
   }
@@ -52,7 +50,9 @@ class SingleFavAnime extends Component {
     const animeId= this.props.anime._id;
     console.log(animeId);
     const editURL = `${process.env.REACT_APP_API_URL}/anime/${animeId}`
-    await axios.put(editURL, animeNotes)
+    let response = await axios.put(editURL, animeNotes)
+    this.props.getAnimeRefresh();
+  
   }
   
 
@@ -63,9 +63,12 @@ class SingleFavAnime extends Component {
           <Card.Body>
             <Card.Text as="h4">
               <p>{this.props.anime.title}</p>
+            
             </Card.Text>
             <Card.Img variant="bottom" src={this.props.anime.image_url} />
-            {this.props.anime.user_comment && (<Card.Text as="h5">{this.props.user_comment}</Card.Text>)}
+            {this.props.anime.user_comment && (
+            <Card.Text >{this.props.anime.user_comment}</Card.Text>
+            )}
             <Form onSubmit = {this.handleSubmit}>
             <Form.Group className="mb-3" controlId="notes">
           <Form.Label>Notes</Form.Label>
