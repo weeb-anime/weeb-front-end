@@ -7,7 +7,7 @@ function LogoutButton() {
 
   return (
     isAuthenticated && (
-      <Button
+      <Button variant="warning"
         onClick={() => {
           logout({ returnTo: window.location.origin });
         }}

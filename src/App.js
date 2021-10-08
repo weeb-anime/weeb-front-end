@@ -11,6 +11,8 @@ import LoginButton from './components/LoginButton';
 import { withAuth0 } from '@auth0/auth0-react';
 import Header from './components/Header';
 
+
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +24,7 @@ class App extends React.Component {
     };
   }
 
+ 
   handleAdd = async anime => {
     let url = process.env.REACT_APP_API_URL;
     const animeFav = {
@@ -41,7 +44,6 @@ class App extends React.Component {
   };
 
   handleDelete = async raw => {
-    // console.log(raw);
     const id = raw._id;
     const deleteURL = process.env.REACT_APP_API_URL;
     await axios.delete(deleteURL + '/anime/' + id);
@@ -82,10 +84,10 @@ class App extends React.Component {
             <Route exact path="/">
               {this.props.auth0.isAuthenticated ? (
                 <>
-                  <Header />
-                  <h3>Welcome to Weeb, {this.props.auth0.user.name}</h3>
-                  <AnimeForm getAnimeList={this.getAnimeList} />
                   <div className="searchpage">
+                  <Header />
+                  <h1 className="welcome">Welcome to Weeb, {this.props.auth0.user.name}</h1>
+                  <AnimeForm getAnimeList={this.getAnimeList} />
                     <SuggestAnime
                       xxx={this.state.anime}
                       handleAdd={this.handleAdd}
