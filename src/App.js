@@ -83,7 +83,9 @@ class App extends React.Component {
               {this.props.auth0.isAuthenticated ? (
                 <>
                   <Header />
+                  <div className='searchpage'>
                   <AnimeForm getAnimeList={this.getAnimeList} />
+                  </div>
                   <SuggestAnime
                     xxx={this.state.anime}
                     handleAdd={this.handleAdd} showAlert={this.state.showAlert} hideAlert={this.hideAlert}
@@ -91,18 +93,22 @@ class App extends React.Component {
                 </>
               ) : (
                 <div className ="login">
+                  <div className="loginbox">
                   <LoginButton />
+                  </div>
                 </div>
               )}
             </Route>
             <Route path="/Profile">
               <Header />
+              <div className='profilepage'>
               <Profile
                 user={this.state.user}
                 favAnime={this.state.favAnime}
                 getAnimeRefresh={this.getAnimeRefresh}
                 handleDelete={this.handleDelete}
               />
+              </div>
             </Route>
             <Route path="/About">
               <Header />
