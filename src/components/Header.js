@@ -4,6 +4,7 @@ import NavItem from 'react-bootstrap/NavItem';
 import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import LogoutButton from './LogoutButton';
+import './SuggestAnime.css'
 
 class Header extends Component {
   render() {

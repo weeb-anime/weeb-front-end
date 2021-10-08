@@ -14,7 +14,7 @@ code {
 
 .about-header {
   font-family: 'Bangers', cursive;
-  color: rgb(201, 195, 15);
+  color: rgb(236, 139, 13);
   margin-left: 20px;
   filter: drop-shadow(10px 1px 4px rgb(0, 0, 0));
 }
@@ -32,7 +32,7 @@ code {
   display: flex;
   flex-direction: column;
   font-family: 'Bangers', cursive;
-  filter: drop-shadow(5px 5px 40px rgb(255, 247, 0));
+  filter: drop-shadow(5px 5px 40px rgb(236, 139, 13));
 }
 
 .about-list-item {

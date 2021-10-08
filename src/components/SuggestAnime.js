@@ -3,6 +3,8 @@ import { Card } from 'react-bootstrap';
 import { Container } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import AnimeModal from './AnimeModal';
+import './SuggestAnime.css';
+
 
 export default class SuggestAnime extends React.Component {
   constructor(props) {
@@ -57,11 +59,11 @@ class SingleAnime extends React.Component {
         {this.props.anime.rated === ('PG-13' || 'PG' || 'G') && (
           <>
             {' '}
-            <Card>
-              <Card.Body>
-                <Card.Text as="h4">
+            <Card className = "card">
+              <Card.Body className="card-body">
+                <Card.Title className="card-title"as="h4">
                   <p>{this.props.anime.title}</p>
-                </Card.Text>
+                </Card.Title>
                 <Card.Img
                   variant="bottom"
                   src={this.props.anime.image_url}

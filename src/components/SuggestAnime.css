@@ -1,0 +1,66 @@
+
+.card {
+  background-color: rgb(251, 251, 165);
+  border: solid 5px ;
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  margin: 10px;
+  width:300px;
+}
+.card-title {
+  padding: 10px;
+  font-size: 26px;
+  text-shadow: .5px .5px 1px #6c3f3f
+}
+
+.card-body {
+  font-size: 24px;
+}
+.modal{
+  background-color: rgb(95, 204, 159);
+  background-image:url("https://www.teahub.io/photos/full/288-2885603_synthwave-wallpaper-gif.gif");
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  background-size:cover;
+}
+.cardmodal {
+  background-color: rgb(251, 251, 165);
+  border: solid 5px ;
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-right: 10px;
+  width:auto;
+}
+.modal_header{
+  background-color: rgb(224, 158, 228);
+}
+.modal_body{
+  background-color: rgb(137, 77, 137);
+}
+.modal_footer{
+  background-color: rgb(224, 158, 228);
+}
+button {
+margin:5px;
+background-color: chocolate;
+}
+.form {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0
+}
+
+.welcome{
+  background: rgb(255, 255, 255, 0.8);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 6px;
+  font-weight: bolder;
+  text-align: center;
+  color:rgb(90, 51, 14);
+  text-shadow: 1px 1px 1px #cf6f01;
+}

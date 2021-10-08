@@ -12,12 +12,12 @@ class AnimeModal extends Component {
 
   render() {
     return (
-      <Modal show={this.props.show} onHide={()=>{this.props.hide(); this.props.hideAlert()}}>
-        <Modal.Header closeButton>
+      <Modal className="modal"show={this.props.show} onHide={()=>{this.props.hide(); this.props.hideAlert()}}>
+        <Modal.Header className="modal_header"closeButton>
           <Modal.Title>{this.props.anime.title}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <Card>
+        <Modal.Body className="modal_body">
+          <Card className="cardmodal">
             <Card.Body>
               <Card.Img
                 variant="top"
@@ -33,17 +33,17 @@ class AnimeModal extends Component {
             </Card.Body>
           </Card>
         </Modal.Body>{' '}
-        <Modal.Footer>
-        <Button onClick={this.onAdd} >Add</Button>
+        <Modal.Footer className ="modal_footer">
+        <Button variant="warning"onClick={this.onAdd} >Add</Button>
         {this.props.showAlert && (
-          <Alert variant="success">
+          <Alert variant="warning">
           <Alert.Heading>Added to your watchlist</Alert.Heading>
           <p>
            To check your watchlist. Please go to profile page.
           </p>
         </Alert>
         )}
-          <Button variant="primary" onClick={()=>{this.props.hide(); this.props.hideAlert()}}>
+          <Button variant="warning" onClick={()=>{this.props.hide(); this.props.hideAlert()}}>
             Close
           </Button>
    
